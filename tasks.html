@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .checkbox {
+            margin: 0px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="checklist">
+    <input type="text" id="addItem" autofocus placeholder="Введите задачу">
+    <button id="click">Add item</button>
+    <div id="itemParent"></div>
+</div>
+<script>
+    var checkList = document.getElementById('checklist');
+    var item = document.getElementById('addItem');
+    var addButton = document.getElementById('click');
+    var parentItem =document.getElementById('itemParent');
+    addButton.addEventListener('click', addItem);
+    checkList.addEventListener('click',removeItem) ;
+
+    function addItem() {
+        var val = item.value;
+        parentItem.innerHTML=addItemHtml(val)+parentItem.innerHTML;
+        item.value = '';
+    }
+    function addItemHtml(val) {
+        return '<div class="item">'
+            +		 '<input type="checkbox" class="checkbox">'
+            +		 '<div class="text">' + val + '</div>'
+            +		 '<button class="remove">x</button>'
+            +	 '</div>'
+    }
+    function removeItem(event) {
+        console.log(event.target);
+        var removeItem = event.target;
+        console.log(removeItem);
+        var isRemove = event.target.className === 'remove';
+        console.log(isRemove);
+        if(isRemove) {
+            var item = event.target.closest('.item');
+            parentItem.removeChild(item);
+        }
+    }
+
+</script>
+</body>
+</html>
